@@ -1,4 +1,23 @@
 from django.db import models
+from django.db.models import Case, Value, When
+from django.db.models.functions import Now
+from django.utils.timezone import now
+
+# 완료한 작업을 제외한 모든 Todo Entry에 대한 질의를 수행
+class RemainingTodoManager(models.Manager):
+    def get_queryset(self):
+        return super(PriorityTodoManager, self) \
+            .get_queryset() \
+            .filter(completed=False) \
+            .annotate(outdated=Case(
+                # deadline 필드가 NULL이 아니면서, 
+                # 현재 시간보다 적으면 기한이 지났다고 표시
+                When(deadline__isnull=False, 
+                    deadline__lte=Now(), 
+                    then=Value(True)),
+                default=Value(False),
+                output_field=models.BooleanField()
+            ) )
 
 # Create your models here.
 class TodoEntry(models.Model):
@@ -13,17 +32,22 @@ class TodoEntry(models.Model):
     """
 
     PRIORITIES = (
-        ('S', '긴급'),
-        ('A', '중요한 일'),
-        ('B', '평범한 일'),
-        ('C', '사소한 일'),
+        ('1', '긴급'),
+        ('2', '중요한 일'),
+        ('3', '평범한 일'),
+        ('4', '사소한 일'),
     )
 
     title       = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     completed   = models.BooleanField(default=False)
-    priority    = models.CharField(max_length=1, choices=PRIORITIES, default='C')
+    priority    = models.CharField(max_length=1, choices=PRIORITIES, default='3')
     deadline    = models.DateTimeField(null=True, default=None)
 
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now=True)
+    created_at  = models.DateTimeField(default=now)
+    updated_at  = models.DateTimeField(default=now)
+
+    # Query Set 정의
+
+    entries     = models.Manager()
+    remaining   = PriorityTodoManager()

@@ -3,11 +3,15 @@
 ## Environment
 
 * Python 3.6
-* Django 2.0
+* Django 2.1
 * Pipenv
+* PostgreSQL
 
 ### Installation
 
+> Ubuntu 기준으로 작성한 메뉴얼입니다.
+
+#### Installing Django
 1. Pyenv 설치에 필요한 빌드 패키지들을 설치한다.
 
 2. Pyenv를 설치한다.
@@ -30,6 +34,18 @@ pipenv shell
 pipenv install
 ```
 
+#### Installing PostgreSQL
+
+> 
+
+
+#### Test
+
+각 Feature가 잘 동작하는지 테스트하려면 다음의 명령어를 입력하시면 됩니다.
+
+```sh
+python manage.py test
+```
 
 ## Requirements
 
@@ -41,6 +57,11 @@ pipenv install
 * TODO 목록을 볼 수 있다.
 * TODO 내용을 수정할 수 있다.
 * TODO 항목을 삭제할 수 있다.
+
+### Additional Feature
+
+* 할 일에 대해 메모를 남길 수 있는 댓글 기능
+* 할 일에 대한 분류 기능
 
 ## 
 
