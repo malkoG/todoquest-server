@@ -3,10 +3,17 @@ from django.db.models import Case, Value, When
 from django.db.models.functions import Now
 from django.utils.timezone import now
 
+PRIORITIES = (
+    ('1', '긴급'),
+    ('2', '중요한 일'),
+    ('3', '평범한 일'),
+    ('4', '사소한 일'),
+)
+
 # 완료한 작업을 제외한 모든 Todo Entry에 대한 질의를 수행
 class RemainingTodoManager(models.Manager):
     def get_queryset(self):
-        return super(PriorityTodoManager, self) \
+        return super(RemainingTodoManager, self) \
             .get_queryset() \
             .filter(completed=False) \
             .annotate(outdated=Case(
@@ -31,13 +38,6 @@ class TodoEntry(models.Model):
     * deadline : TodoEntry에서 마감기한을 의미한다.
     """
 
-    PRIORITIES = (
-        ('1', '긴급'),
-        ('2', '중요한 일'),
-        ('3', '평범한 일'),
-        ('4', '사소한 일'),
-    )
-
     title       = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     completed   = models.BooleanField(default=False)
@@ -50,4 +50,4 @@ class TodoEntry(models.Model):
     # Query Set 정의
 
     entries     = models.Manager()
-    remaining   = PriorityTodoManager()
+    remaining   = RemainingTodoManager()
