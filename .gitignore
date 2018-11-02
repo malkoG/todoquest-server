@@ -1,3 +1,5 @@
 .env
 *.yaml
 *.pyc
+node_modules/
+.cache

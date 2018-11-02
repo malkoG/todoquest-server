@@ -1,0 +1,31 @@
+#content {
+  min-height: 800px; }
+.todo {
+  height: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+  .todo .priority {
+    font-size: 30px;
+    width: 40px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px;
+    margin: 0px;
+    float: left; }
+    .todo .priority-red {
+      color: red; }
+    .todo .priority-yellow {
+      color: yellow; }
+    .todo .priority-black {
+      color: black; }
+    .todo .priority-purple {
+      color: purple; }
+  .todo .title {
+    width: 500px;
+    padding-left: 10px;
+    height: 50px;
+    line-height: 50px;
+    float: left; }
+#side-bar {
+  min-height: 100%;
+  float: left; }
