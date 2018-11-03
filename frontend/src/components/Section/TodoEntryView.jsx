@@ -12,7 +12,7 @@ export class TodoEntryView extends React.Component {
     }
 
     render() {
-        let PRIORITY_COLOR = ["", "red", "orange", "purple", "black"]
+        let PRIORITY_COLOR = ["", "red", "yellow", "purple", "black"]
         let color_code = this.props.data.priority
         let showing_status = [<br/>]
 

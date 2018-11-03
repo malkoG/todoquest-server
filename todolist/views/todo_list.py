@@ -5,9 +5,8 @@ from todolist.serializers import DeadlinedTodoEntrySerializer
 from rest_framework import mixins
 from rest_framework import generics
 
-class TodoList(mixins.ListModelMixin,
-            mixins.CreateModelMixin,
-            generics.GenericAPIView):
+class TodoList(mixins.CreateModelMixin,
+                generics.GenericAPIView):
     queryset         = TodoEntry.entries.all()
     serializer_class = TodoEntrySerializer
 
@@ -15,8 +14,7 @@ class TodoList(mixins.ListModelMixin,
         return self.create(request, *args, **kwargs)
 
 class Today(mixins.ListModelMixin,
-            mixins.CreateModelMixin,
-            generics.GenericAPIView):
+                generics.GenericAPIView):
     queryset         = TodoEntry.remaining.all()
     serializer_class = DeadlinedTodoEntrySerializer
     

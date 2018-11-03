@@ -11,9 +11,9 @@ export class Section extends React.Component {
         return (
             <Col xs={10} id="section">  
                 <Route exact path="/" component={TodayView}/>
-                <Route path="/todo/:id" component={TodoDetailView} />
-                <Route path="/todo/new" component={TodoCreateView} />
-                <Route path="/todo/:id/edit" component={TodoCreateView} />
+                <Route exact path="/todo/new" component={TodoCreateView} />
+                <Route path="/todo/:id([0-9]+)" component={TodoDetailView} />
+                <Route path="/todo/:id([0-9]+)/edit" component={TodoCreateView} />
             </Col>
         );
     }

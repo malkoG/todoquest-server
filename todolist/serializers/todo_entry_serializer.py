@@ -9,11 +9,23 @@ class TodoEntrySerializer(serializers.Serializer):
     description = serializers.CharField()
     completed   = serializers.BooleanField()
     priority    = serializers.ChoiceField(choices=PRIORITIES, default='3')
-    deadline    = serializers.DateTimeField(default=None)
+    deadline    = serializers.DateTimeField(default=None, allow_null=True)
 
     class Meta:
         model  = TodoEntry
         fields = ('id', 'title', 'completed', 'description', 'priority', 'deadline')
+
+    def create(self, validated_data):
+        return TodoEntry.entries.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.title       = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.deadline    = validated_data.get('deadline', instance.deadline)
+        instance.priority    = validated_data.get('priority', instance.priority)
+        instance.save()
+
+        return instance
 
 # List View에서 보여지는 TodoEntry를 어떻게 직렬화할 것인지 나타내는 클래스
 class MinimizedTodoEntrySerializer(serializers.Serializer):
