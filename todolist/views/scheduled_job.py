@@ -6,7 +6,7 @@ from todolist.models import TodoEntry, Notification
 
 @api_view(['GET'])
 def scheduled_job(request):
-    unread_count = len(TodoEntry.entries.filter(completed=False))
+    unread_count = len(TodoEntry.remaining.filter(outdated=True))
 
     notification = Notification(
         category='1',
