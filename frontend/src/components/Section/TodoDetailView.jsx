@@ -1,15 +1,12 @@
 import * as React from 'react';
-import {Redirect} from 'react-router-dom'
 
-import {FormGroup, ControlLabel, FormControl, Button, HelpBlock, Glyphicon} from 'react-bootstrap';
+import {FormGroup, ButtonGroup, ControlLabel, FormControl, Button,  Glyphicon} from 'react-bootstrap';
 
 import moment from 'moment';
 
 import DatePicker from 'react-datepicker';
 
 import {TodoAPI} from '../API/TodoAPI';
-
-import 'react-datepicker/dist/react-datepicker.css';
 
 import './TodoEntryView.sass'
 
@@ -23,9 +20,29 @@ export class TodoDetailView extends React.Component {
         this.handleDateChange     = this.handleDateChange.bind(this);
         this.handleClick          = this.handleClick.bind(this);
 
+        this.handleDelete         = this.handleDelete.bind(this);
+        this.handleComplete       = this.handleComplete.bind(this);
+
         this.state = {
             
         }
+    }
+
+
+    handleDelete(e) {
+        TodoAPI.delete('/todo/' + this.state.id)
+
+        this.props.history.push('/')
+        window.location.reload()
+    }
+
+    handleComplete(e) {
+        if(this.state.completed)
+            TodoAPI.put('/todo/' + this.state.id + '/incomplete')
+        else 
+            TodoAPI.put('/todo/' + this.state.id + '/complete')
+
+        window.location.reload()
     }
 
     handleTitleChange(e) {
@@ -72,11 +89,17 @@ export class TodoDetailView extends React.Component {
         TodoAPI.put('/todo/' + this.state.id, data).then((res) => console.log(res.data))
 
         this.props.history.push('/')
+
+        window.location.reload()
     }
 
 
     render() {
         let PRIORITY_COLOR = ["", "red", "yellow", "purple", "black"]
+
+        let complete_button = (<div>
+            <Glyphicon glyph={this.state.completed ? "ok" : "unchecked"}/> <span>{ !this.state.completed ? "Check as Completed" : "Check as Incompleted"}</span>
+            </div>)
 
         return (            
             <form>
@@ -132,8 +155,17 @@ export class TodoDetailView extends React.Component {
                     onChange={this.handleDateChange}
                 />
                 
-                <Button type="submit"
+
+                <ButtonGroup>
+                    <Button className="btn-todo" type="submit"
                         onClick={this.handleClick}>Submit</Button>
+                    <Button className="btn-todo" onClick={this.handleDelete}>
+                        <Glyphicon glyph="trash" />
+                        Delete</Button>
+                    <Button className="btn-todo" onClick={this.handleComplete}>
+                    {complete_button}
+                    </Button>
+                </ButtonGroup>
 
             </form>
         )

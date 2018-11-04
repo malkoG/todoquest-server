@@ -7,8 +7,6 @@ import DatePicker from 'react-datepicker';
 
 import {TodoAPI} from '../API/TodoAPI';
 
-import 'react-datepicker/dist/react-datepicker.css';
-
 import './TodoEntryView.sass'
 
 export class TodoCreateView extends React.Component {
@@ -65,6 +63,8 @@ export class TodoCreateView extends React.Component {
         TodoAPI.post('/todo/', data).then((res) => console.log(res.data))
 
         this.props.history.push('/')
+
+        window.location.reload()
     }
 
     render() {

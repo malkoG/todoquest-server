@@ -47335,6 +47335,12 @@ module.exports = reloadCSS;
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
+},{"_css_loader":30}],325:[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
 },{"_css_loader":30}],179:[function(require,module,exports) {
 'use strict';
 
@@ -47484,33 +47490,7 @@ var Footer = exports.Footer = function (_React$Component) {
     }]);
     return Footer;
 }(React.Component);
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5}],553:[function(require,module,exports) {
-module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
-},{"core-js/library/fn/object/assign":304}],524:[function(require,module,exports) {
-"use strict";
-
-exports.__esModule = true;
-
-var _assign = require("../core-js/object/assign");
-
-var _assign2 = _interopRequireDefault(_assign);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _assign2.default || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-},{"../core-js/object/assign":553}],421:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5}],421:[function(require,module,exports) {
 var core = require('../../modules/_core');
 var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
 module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
@@ -49213,6 +49193,8 @@ var _reactBootstrap = require('react-bootstrap');
 
 var _reactRouterDom = require('react-router-dom');
 
+var _TodoAPI = require('../API/TodoAPI');
+
 require('./TodoEntryView.sass');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -49224,10 +49206,37 @@ var TodoEntryView = exports.TodoEntryView = function (_React$Component) {
 
     function TodoEntryView(props) {
         (0, _classCallCheck3.default)(this, TodoEntryView);
-        return (0, _possibleConstructorReturn3.default)(this, (TodoEntryView.__proto__ || (0, _getPrototypeOf2.default)(TodoEntryView)).call(this, props));
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (TodoEntryView.__proto__ || (0, _getPrototypeOf2.default)(TodoEntryView)).call(this, props));
+
+        _this.handleCompleteSubmit = _this.handleCompleteSubmit.bind(_this);
+        _this.handleIncompleteSubmit = _this.handleIncompleteSubmit.bind(_this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        return _this;
     }
 
     (0, _createClass3.default)(TodoEntryView, [{
+        key: 'handleDelete',
+        value: function handleDelete(id, e) {
+            _TodoAPI.TodoAPI.delete('/todo/' + id);
+
+            window.location.reload();
+        }
+    }, {
+        key: 'handleCompleteSubmit',
+        value: function handleCompleteSubmit(id, e) {
+            _TodoAPI.TodoAPI.put('/todo/' + id + '/complete');
+
+            window.location.reload();
+        }
+    }, {
+        key: 'handleIncompleteSubmit',
+        value: function handleIncompleteSubmit(id, e) {
+            _TodoAPI.TodoAPI.put('/todo/' + id + '/incomplete');
+
+            window.location.reload();
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -49239,12 +49248,12 @@ var TodoEntryView = exports.TodoEntryView = function (_React$Component) {
             if (this.props.data.completed) {
                 showing_status = React.createElement(_reactBootstrap.Glyphicon, {
                     onClick: function onClick(e) {
-                        return _this2.props.handleinCompleteSubmit(_this2.props.data.id, e);
+                        return _this2.handleinCompleteSubmit(_this2.props.data.id, e);
                     }, glyph: 'ok' });
             } else {
                 showing_status = React.createElement(_reactBootstrap.Glyphicon, {
                     onClick: function onClick(e) {
-                        return _this2.props.handleCompleteSubmit(_this2.props.data.id, e);
+                        return _this2.handleCompleteSubmit(_this2.props.data.id, e);
                     }, glyph: 'unchecked' });
             }
 
@@ -49275,7 +49284,7 @@ var TodoEntryView = exports.TodoEntryView = function (_React$Component) {
                     { className: 'delete-button' },
                     React.createElement(_reactBootstrap.Glyphicon, {
                         onClick: function onClick(e) {
-                            return _this2.props.handleDelete(_this2.props.data.id, e);
+                            return _this2.handleDelete(_this2.props.data.id, e);
                         },
                         glyph: 'trash' })
                 )
@@ -49284,7 +49293,7 @@ var TodoEntryView = exports.TodoEntryView = function (_React$Component) {
     }]);
     return TodoEntryView;
 }(React.Component);
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"./TodoEntryView.sass":323}],259:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"../API/TodoAPI":327,"./TodoEntryView.sass":323}],259:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49335,8 +49344,6 @@ var TodoListView = function (_React$Component) {
     (0, _createClass3.default)(TodoListView, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var outdated = [];
             var remaining = [];
 
@@ -49349,17 +49356,11 @@ var TodoListView = function (_React$Component) {
 
             if (outdated.length != 0) outdated_todo = outdated.map(function (e, i) {
                 return React.createElement(_TodoEntryView.TodoEntryView, {
-                    handleCompleteSubmit: _this2.props.handleCompleteSubmit,
-                    handleIncompleteSubmit: _this2.props.handleIncompleteSubmit,
-                    handleDelete: _this2.props.handleDelete,
                     key: e.id, data: e });
             });
 
             if (remaining.length != 0) remaining_todo = remaining.map(function (e, i) {
                 return React.createElement(_TodoEntryView.TodoEntryView, {
-                    handleCompleteSubmit: _this2.props.handleCompleteSubmit,
-                    handleIncompleteSubmit: _this2.props.handleIncompleteSubmit,
-                    handleDelete: _this2.props.handleDelete,
                     key: e.id, data: e });
             });
 
@@ -49398,25 +49399,25 @@ var TodayView = exports.TodayView = function (_React$Component2) {
     function TodayView(props) {
         (0, _classCallCheck3.default)(this, TodayView);
 
-        var _this3 = (0, _possibleConstructorReturn3.default)(this, (TodayView.__proto__ || (0, _getPrototypeOf2.default)(TodayView)).call(this, props));
+        var _this2 = (0, _possibleConstructorReturn3.default)(this, (TodayView.__proto__ || (0, _getPrototypeOf2.default)(TodayView)).call(this, props));
 
-        _this3.state = {
+        _this2.state = {
             todo: [],
             isLoading: true,
             catch: {}
         };
-        return _this3;
+        return _this2;
     }
 
     (0, _createClass3.default)(TodayView, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this4 = this;
+            var _this3 = this;
 
             _TodoAPI.TodoAPI.get('/today').then(function (res) {
-                _this4.setState({ todo: res.data, isLoading: false });
+                _this3.setState({ todo: res.data, isLoading: false });
             }).catch(function (err) {
-                return _this4.setState({ error: error, isLoading: false });
+                return _this3.setState({ error: error, isLoading: false });
             });
         }
     }, {
@@ -49426,16 +49427,39 @@ var TodayView = exports.TodayView = function (_React$Component2) {
                 'div',
                 null,
                 React.createElement(TodoListView, {
-                    handleCompleteSubmit: this.props.handleCompleteSubmit,
-                    handleIncompleteSubmit: this.props.handleIncompleteSubmit,
-                    handleDelete: this.props.handleDelete,
                     todo: this.state.todo })
             );
         }
     }]);
     return TodayView;
 }(React.Component);
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"../API/TodoAPI":327,"./TodoEntryView":330}],347:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"../API/TodoAPI":327,"./TodoEntryView":330}],553:[function(require,module,exports) {
+module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
+},{"core-js/library/fn/object/assign":304}],524:[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+
+var _assign = require("../core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _assign2.default || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+},{"../core-js/object/assign":553}],347:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62449,13 +62473,7 @@ var PRESELECT_CHANGE_VIA_NAVIGATE = "navigate";
 
 exports.CalendarContainer = CalendarContainer;
 exports.default = DatePicker;
-},{"react":5,"prop-types":162,"classnames":188,"react-onclickoutside":374,"moment":326,"react-popper":375}],325:[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":30}],260:[function(require,module,exports) {
+},{"react":5,"prop-types":162,"classnames":188,"react-onclickoutside":374,"moment":326,"react-popper":375}],260:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62491,8 +62509,6 @@ var _react = require('react');
 
 var React = _interopRequireWildcard(_react);
 
-var _reactRouterDom = require('react-router-dom');
-
 var _reactBootstrap = require('react-bootstrap');
 
 var _moment = require('moment');
@@ -62504,8 +62520,6 @@ var _reactDatepicker = require('react-datepicker');
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
 var _TodoAPI = require('../API/TodoAPI');
-
-require('react-datepicker/dist/react-datepicker.css');
 
 require('./TodoEntryView.sass');
 
@@ -62527,11 +62541,29 @@ var TodoDetailView = exports.TodoDetailView = function (_React$Component) {
         _this.handleDateChange = _this.handleDateChange.bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
 
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.handleComplete = _this.handleComplete.bind(_this);
+
         _this.state = {};
         return _this;
     }
 
     (0, _createClass3.default)(TodoDetailView, [{
+        key: 'handleDelete',
+        value: function handleDelete(e) {
+            _TodoAPI.TodoAPI.delete('/todo/' + this.state.id);
+
+            this.props.history.push('/');
+            window.location.reload();
+        }
+    }, {
+        key: 'handleComplete',
+        value: function handleComplete(e) {
+            if (this.state.completed) _TodoAPI.TodoAPI.put('/todo/' + this.state.id + '/incomplete');else _TodoAPI.TodoAPI.put('/todo/' + this.state.id + '/complete');
+
+            window.location.reload();
+        }
+    }, {
         key: 'handleTitleChange',
         value: function handleTitleChange(e) {
             this.setState({ title: e.target.value });
@@ -62583,11 +62615,25 @@ var TodoDetailView = exports.TodoDetailView = function (_React$Component) {
             });
 
             this.props.history.push('/');
+
+            window.location.reload();
         }
     }, {
         key: 'render',
         value: function render() {
             var PRIORITY_COLOR = ["", "red", "yellow", "purple", "black"];
+
+            var complete_button = React.createElement(
+                'div',
+                null,
+                React.createElement(_reactBootstrap.Glyphicon, { glyph: this.state.completed ? "ok" : "unchecked" }),
+                ' ',
+                React.createElement(
+                    'span',
+                    null,
+                    !this.state.completed ? "Check as Completed" : "Check as Incompleted"
+                )
+            );
 
             return React.createElement(
                 'form',
@@ -62674,17 +62720,32 @@ var TodoDetailView = exports.TodoDetailView = function (_React$Component) {
                     onChange: this.handleDateChange
                 }),
                 React.createElement(
-                    _reactBootstrap.Button,
-                    { type: 'submit',
-                        onClick: this.handleClick },
-                    'Submit'
+                    _reactBootstrap.ButtonGroup,
+                    null,
+                    React.createElement(
+                        _reactBootstrap.Button,
+                        { className: 'btn-todo', type: 'submit',
+                            onClick: this.handleClick },
+                        'Submit'
+                    ),
+                    React.createElement(
+                        _reactBootstrap.Button,
+                        { className: 'btn-todo', onClick: this.handleDelete },
+                        React.createElement(_reactBootstrap.Glyphicon, { glyph: 'trash' }),
+                        'Delete'
+                    ),
+                    React.createElement(
+                        _reactBootstrap.Button,
+                        { className: 'btn-todo', onClick: this.handleComplete },
+                        complete_button
+                    )
                 )
             );
         }
     }]);
     return TodoDetailView;
 }(React.Component);
-},{"babel-runtime/helpers/extends":524,"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-router-dom":7,"react-bootstrap":20,"moment":326,"react-datepicker":340,"../API/TodoAPI":327,"react-datepicker/dist/react-datepicker.css":325,"./TodoEntryView.sass":323}],261:[function(require,module,exports) {
+},{"babel-runtime/helpers/extends":524,"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"moment":326,"react-datepicker":340,"../API/TodoAPI":327,"./TodoEntryView.sass":323}],261:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -62725,8 +62786,6 @@ var _reactDatepicker = require('react-datepicker');
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
 var _TodoAPI = require('../API/TodoAPI');
-
-require('react-datepicker/dist/react-datepicker.css');
 
 require('./TodoEntryView.sass');
 
@@ -62798,6 +62857,8 @@ var TodoCreateView = exports.TodoCreateView = function (_React$Component) {
             });
 
             this.props.history.push('/');
+
+            window.location.reload();
         }
     }, {
         key: 'render',
@@ -62898,17 +62959,327 @@ var TodoCreateView = exports.TodoCreateView = function (_React$Component) {
     }]);
     return TodoCreateView;
 }(React.Component);
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-router-dom":7,"react-bootstrap":20,"react-datepicker":340,"../API/TodoAPI":327,"react-datepicker/dist/react-datepicker.css":325,"./TodoEntryView.sass":323}],181:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-router-dom":7,"react-bootstrap":20,"react-datepicker":340,"../API/TodoAPI":327,"./TodoEntryView.sass":323}],602:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.HistoryView = undefined;
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var React = _interopRequireWildcard(_react);
+
+var _reactBootstrap = require('react-bootstrap');
+
+var _reactRouterDom = require('react-router-dom');
+
+var _TodoEntryView = require('./TodoEntryView');
+
+var _TodoAPI = require('../API/TodoAPI');
+
+require('./TodoEntryView.sass');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoListView = function (_React$Component) {
+    (0, _inherits3.default)(TodoListView, _React$Component);
+
+    function TodoListView(props) {
+        (0, _classCallCheck3.default)(this, TodoListView);
+        return (0, _possibleConstructorReturn3.default)(this, (TodoListView.__proto__ || (0, _getPrototypeOf2.default)(TodoListView)).call(this, props));
+    }
+
+    (0, _createClass3.default)(TodoListView, [{
+        key: 'render',
+        value: function render() {
+            var todolist = [];
+            var todo_entries = [];
+
+            for (var i = 0; i < this.props.todo.length; ++i) {
+                todolist.push(this.props.todo[i]);
+            }if (todolist.length != 0) todo_entries = todolist.map(function (e, i) {
+                return React.createElement(_TodoEntryView.TodoEntryView, {
+                    key: e.id, data: e });
+            });
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'div',
+                    { id: 'todolist' },
+                    React.createElement(
+                        'h2',
+                        null,
+                        '\uC9C0\uAE08\uAE4C\uC9C0\uC758 \uC0DD\uC131\uD55C \uD560 \uC77C \uBAA9\uB85D'
+                    ),
+                    todo_entries
+                )
+            );
+        }
+    }]);
+    return TodoListView;
+}(React.Component);
+
+var HistoryView = exports.HistoryView = function (_React$Component2) {
+    (0, _inherits3.default)(HistoryView, _React$Component2);
+
+    function HistoryView(props) {
+        (0, _classCallCheck3.default)(this, HistoryView);
+
+        var _this2 = (0, _possibleConstructorReturn3.default)(this, (HistoryView.__proto__ || (0, _getPrototypeOf2.default)(HistoryView)).call(this, props));
+
+        _this2.state = {
+            todo: [],
+            isLoading: true,
+            catch: {}
+        };
+        return _this2;
+    }
+
+    (0, _createClass3.default)(HistoryView, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this3 = this;
+
+            _TodoAPI.TodoAPI.get('/todo/').then(function (res) {
+                _this3.setState({ todo: res.data, isLoading: false });
+            }).catch(function (err) {
+                return _this3.setState({ error: error, isLoading: false });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(TodoListView, {
+                    todo: this.state.todo })
+            );
+        }
+    }]);
+    return HistoryView;
+}(React.Component);
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"./TodoEntryView":330,"../API/TodoAPI":327,"./TodoEntryView.sass":323}],605:[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":30}],604:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.NotificationEntry = undefined;
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var React = _interopRequireWildcard(_react);
+
+var _reactBootstrap = require('react-bootstrap');
+
+var _TodoAPI = require('../API/TodoAPI');
+
+require('./notification.sass');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotificationEntry = exports.NotificationEntry = function (_React$Component) {
+    (0, _inherits3.default)(NotificationEntry, _React$Component);
+
+    function NotificationEntry(props) {
+        (0, _classCallCheck3.default)(this, NotificationEntry);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (NotificationEntry.__proto__ || (0, _getPrototypeOf2.default)(NotificationEntry)).call(this, props));
+
+        _this.handleRead = _this.handleRead.bind(_this);
+        return _this;
+    }
+
+    (0, _createClass3.default)(NotificationEntry, [{
+        key: 'handleRead',
+        value: function handleRead() {
+            _TodoAPI.TodoAPI.put('/notifications/' + this.props.data.id + '/check');
+
+            window.location.reload();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var CATEGORIES = ['', 'tags'];
+            var category = CATEGORIES[parseInt(this.props.data.category)];
+            var icon = React.createElement(_reactBootstrap.Glyphicon, { glyph: category });
+
+            return React.createElement(
+                'div',
+                { className: 'notification' },
+                React.createElement(
+                    'div',
+                    { className: 'noti noti-icon' },
+                    icon
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'noti noti-detail' },
+                    this.props.data.detail
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'noti noti-datetime' },
+                    this.props.data.created_at
+                ),
+                React.createElement(
+                    _reactBootstrap.Button,
+                    { onClick: this.handleRead },
+                    'Mark as Read'
+                )
+            );
+        }
+    }]);
+    return NotificationEntry;
+}(React.Component);
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"../API/TodoAPI":327,"./notification.sass":605}],603:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.NotificationsView = undefined;
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var React = _interopRequireWildcard(_react);
+
+var _TodoAPI = require('../API/TodoAPI');
+
+var _NotificationEntry = require('./NotificationEntry');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotificationsView = exports.NotificationsView = function (_React$Component) {
+    (0, _inherits3.default)(NotificationsView, _React$Component);
+
+    function NotificationsView(props) {
+        (0, _classCallCheck3.default)(this, NotificationsView);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (NotificationsView.__proto__ || (0, _getPrototypeOf2.default)(NotificationsView)).call(this, props));
+
+        _this.state = {
+            notifications: []
+        };
+        return _this;
+    }
+
+    (0, _createClass3.default)(NotificationsView, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            _TodoAPI.TodoAPI.get('/notifications/').then(function (res) {
+                return _this2.setState({ notifications: res.data });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var notifications_view = React.createElement('br', null);
+
+            if (this.state.notifications !== []) notifications_view = this.state.notifications.map(function (e, i) {
+                return React.createElement(_NotificationEntry.NotificationEntry, { key: e.id, data: e });
+            });
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'h1',
+                    null,
+                    '\uD655\uC778\uD558\uC9C0 \uC54A\uC740 \uC54C\uB9BC \uBAA9\uB85D'
+                ),
+                notifications_view
+            );
+        }
+    }]);
+    return NotificationsView;
+}(React.Component);
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"../API/TodoAPI":327,"./NotificationEntry":604}],181:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.Section = undefined;
-
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -62944,7 +63315,9 @@ var _TodoDetailView = require('./TodoDetailView');
 
 var _TodoCreateView = require('./TodoCreateView');
 
-var _TodoAPI = require('../API/TodoAPI');
+var _HistoryView = require('./HistoryView');
+
+var _NotificationsView = require('./NotificationsView');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -62955,64 +63328,36 @@ var Section = exports.Section = function (_React$Component) {
 
     function Section(props) {
         (0, _classCallCheck3.default)(this, Section);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Section.__proto__ || (0, _getPrototypeOf2.default)(Section)).call(this, props));
-
-        _this.handleCompleteSubmit = _this.handleCompleteSubmit.bind(_this);
-        _this.handleIncompleteSubmit = _this.handleIncompleteSubmit.bind(_this);
-        _this.handleDelete = _this.handleDelete.bind(_this);
-        return _this;
+        return (0, _possibleConstructorReturn3.default)(this, (Section.__proto__ || (0, _getPrototypeOf2.default)(Section)).call(this, props));
     }
 
     (0, _createClass3.default)(Section, [{
-        key: 'handleDelete',
-        value: function handleDelete(id, e) {
-            _TodoAPI.TodoAPI.delete('/todo/' + id);
-        }
-    }, {
-        key: 'handleCompleteSubmit',
-        value: function handleCompleteSubmit(id, e) {
-            _TodoAPI.TodoAPI.put('/todo/' + id + '/complete');
-        }
-    }, {
-        key: 'handleIncompleteSubmit',
-        value: function handleIncompleteSubmit(id, e) {
-            _TodoAPI.TodoAPI.put('/todo/' + id + '/incomplete');
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return React.createElement(
                 _reactBootstrap.Col,
                 { xs: 10, id: 'section' },
                 React.createElement(_reactRouterDom.Route, { exact: true, path: '/',
                     render: function render(props) {
-                        return React.createElement(_TodayView.TodayView, (0, _extends3.default)({}, props, {
-                            handleCompleteSubmit: _this2.handleCompleteSubmit,
-                            handleIncompleteSubmit: _this2.handleIncompleteSubmit,
-                            handleDelete: _this2.handleDelete
-                        }));
+                        return React.createElement(_TodayView.TodayView, props);
                     }
                 }),
                 React.createElement(_reactRouterDom.Route, { exact: true, path: '/todo/new',
                     component: _TodoCreateView.TodoCreateView }),
                 React.createElement(_reactRouterDom.Route, { path: '/todo/:id([0-9]+)',
                     render: function render(props) {
-                        return React.createElement(_TodoDetailView.TodoDetailView, (0, _extends3.default)({}, props, {
-                            handleCompleteSubmit: _this2.handleCompleteSubmit,
-                            handleIncompleteSubmit: _this2.handleIncompleteSubmit }));
-                    },
-                    handleDelete: this.handleDelete
-                }),
-                React.createElement(_reactRouterDom.Route, { path: '/todo/:id([0-9]+)/edit', component: _TodoCreateView.TodoCreateView })
+                        return React.createElement(_TodoDetailView.TodoDetailView, props);
+                    } }),
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/history',
+                    component: _HistoryView.HistoryView }),
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/notifications',
+                    component: _NotificationsView.NotificationsView })
             );
         }
     }]);
     return Section;
 }(React.Component);
-},{"babel-runtime/helpers/extends":524,"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"./TodayView":259,"./TodoDetailView":260,"./TodoCreateView":261,"../API/TodoAPI":327}],78:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"./TodayView":259,"./TodoDetailView":260,"./TodoCreateView":261,"./HistoryView":602,"./NotificationsView":603}],78:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -63071,6 +63416,8 @@ var _reactBootstrap = require('react-bootstrap');
 
 var _reactRouterDom = require('react-router-dom');
 
+var _TodoAPI = require('../API/TodoAPI');
+
 require('./sidebar.sass');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -63080,28 +63427,78 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var AsideBar = exports.AsideBar = function (_React$Component) {
     (0, _inherits3.default)(AsideBar, _React$Component);
 
-    function AsideBar() {
+    function AsideBar(props) {
         (0, _classCallCheck3.default)(this, AsideBar);
-        return (0, _possibleConstructorReturn3.default)(this, (AsideBar.__proto__ || (0, _getPrototypeOf2.default)(AsideBar)).apply(this, arguments));
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (AsideBar.__proto__ || (0, _getPrototypeOf2.default)(AsideBar)).call(this, props));
+
+        _this.state = {
+            notifications: 0
+        };
+        return _this;
     }
 
     (0, _createClass3.default)(AsideBar, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            _TodoAPI.TodoAPI.get('/notifications/').then(function (res) {
+                return _this2.setState({ notifications: res.data.length });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 _reactBootstrap.Col,
                 { xs: 2, id: 'side-bar' },
                 React.createElement(
-                    _reactRouterDom.NavLink,
-                    { to: '/' },
-                    'Home'
+                    _reactBootstrap.ListGroup,
+                    null,
+                    React.createElement(
+                        _reactBootstrap.ListGroupItem,
+                        null,
+                        React.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: '/notifications' },
+                            React.createElement(_reactBootstrap.Glyphicon, { glyph: 'envelope' }),
+                            ' Inbox ',
+                            React.createElement(
+                                _reactBootstrap.Badge,
+                                null,
+                                this.state.notifications
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        _reactBootstrap.ListGroupItem,
+                        null,
+                        React.createElement(_reactBootstrap.Glyphicon, { glyph: 'home' }),
+                        React.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: '/' },
+                            'Home'
+                        )
+                    ),
+                    React.createElement(
+                        _reactBootstrap.ListGroupItem,
+                        null,
+                        React.createElement(_reactBootstrap.Glyphicon, { glyph: 'list-alt' }),
+                        ' ',
+                        React.createElement(
+                            _reactRouterDom.NavLink,
+                            { to: '/history' },
+                            'History'
+                        )
+                    )
                 )
             );
         }
     }]);
     return AsideBar;
 }(React.Component);
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"./sidebar.sass":178}],3:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"react-router-dom":7,"../API/TodoAPI":327,"./sidebar.sass":178}],3:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -63135,6 +63532,8 @@ var React = _interopRequireWildcard(_react);
 var _reactBootstrap = require('react-bootstrap');
 
 require('./app.sass');
+
+require('react-datepicker/dist/react-datepicker.css');
 
 var _components = require('./components');
 
@@ -63177,7 +63576,7 @@ var App = function (_React$Component) {
 }(React.Component);
 
 exports.default = App;
-},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"./app.sass":15,"./components":78,"./components/AsideBar":79}],4:[function(require,module,exports) {
+},{"babel-runtime/core-js/object/get-prototype-of":25,"babel-runtime/helpers/classCallCheck":26,"babel-runtime/helpers/createClass":27,"babel-runtime/helpers/possibleConstructorReturn":28,"babel-runtime/helpers/inherits":29,"react":5,"react-bootstrap":20,"./app.sass":15,"react-datepicker/dist/react-datepicker.css":325,"./components":78,"./components/AsideBar":79}],4:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -63274,7 +63673,7 @@ ReactDOM.render(React.createElement(
     React.createElement(_App2.default, null)
 ), document.getElementById('root'));
 (0, _registerServiceWorker2.default)();
-},{"react":5,"react-dom":6,"react-router-dom":7,"history/createBrowserHistory":584,"./App":3,"./registerServiceWorker":4}],592:[function(require,module,exports) {
+},{"react":5,"react-dom":6,"react-router-dom":7,"history/createBrowserHistory":584,"./App":3,"./registerServiceWorker":4}],601:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -63443,5 +63842,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[592,1])
+},{}]},{},[601,1])
 //# sourceMappingURL=/app.map

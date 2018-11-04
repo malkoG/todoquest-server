@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Glyphicon} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
 
+import {TodoAPI} from '../API/TodoAPI'
+
 import './TodoEntryView.sass'
 
 
@@ -9,8 +11,29 @@ export class TodoEntryView extends React.Component {
 
     constructor(props) {
         super(props)
+
+        this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
+        this.handleIncompleteSubmit = this.handleIncompleteSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
+    handleDelete(id, e) {
+        TodoAPI.delete('/todo/' + id)
+
+        window.location.reload()
+    }
+
+    handleCompleteSubmit(id, e) {
+        TodoAPI.put('/todo/' + id + '/complete')
+
+        window.location.reload()
+    }
+
+    handleIncompleteSubmit(id, e) {
+        TodoAPI.put('/todo/' + id + '/incomplete')
+
+        window.location.reload()
+    }
 
     render() {
         let PRIORITY_COLOR = ["", "red", "yellow", "purple", "black"]
@@ -19,10 +42,10 @@ export class TodoEntryView extends React.Component {
 
         if(this.props.data.completed) {
             showing_status = <Glyphicon 
-            onClick={(e) => this.props.handleinCompleteSubmit(this.props.data.id, e)} glyph="ok"/>
+            onClick={(e) => this.handleinCompleteSubmit(this.props.data.id, e)} glyph="ok"/>
         } else {
             showing_status = <Glyphicon 
-            onClick={(e) => this.props.handleCompleteSubmit(this.props.data.id, e)} glyph="unchecked"/>
+            onClick={(e) => this.handleCompleteSubmit(this.props.data.id, e)} glyph="unchecked"/>
         }
 
         return (
@@ -38,7 +61,7 @@ export class TodoEntryView extends React.Component {
             <div className="deadline">{this.props.data.deadline}</div>
             <div className="delete-button">
                 <Glyphicon 
-                    onClick={(e) => this.props.handleDelete(this.props.data.id, e)}
+                    onClick={(e) => this.handleDelete(this.props.data.id, e)}
                     glyph="trash"/> 
             </div>
 

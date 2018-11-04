@@ -6,6 +6,7 @@ from rest_framework import mixins
 from rest_framework import generics
 
 class TodoList(mixins.CreateModelMixin,
+                mixins.ListModelMixin,
                 generics.GenericAPIView):
     queryset         = TodoEntry.entries.all()
     serializer_class = TodoEntrySerializer

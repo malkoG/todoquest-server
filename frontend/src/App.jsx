@@ -5,6 +5,9 @@ import {Grid, Row,Col} from 'react-bootstrap'
 
 import './app.sass'
 
+import 'react-datepicker/dist/react-datepicker.css';
+
+
 import {Header, Section, Footer} from './components'
 import { AsideBar } from './components/AsideBar';
 

@@ -24,20 +24,14 @@ class TodoListView extends React.Component {
 
         if(outdated.length != 0)
             outdated_todo = outdated.map((e, i) => {
-                return <TodoEntryView 
-                        handleCompleteSubmit={this.props.handleCompleteSubmit} 
-                        handleIncompleteSubmit={this.props.handleIncompleteSubmit}
-                        handleDelete={this.props.handleDelete}
-                        key={e.id} data={e} />;
+                return <TodoEntryView
+                            key={e.id} data={e} />;
             })
 
         if(remaining.length != 0)
             remaining_todo = remaining.map((e, i) => {
-                return <TodoEntryView 
-                        handleCompleteSubmit={this.props.handleCompleteSubmit} 
-                        handleIncompleteSubmit={this.props.handleIncompleteSubmit}
-                        handleDelete={this.props.handleDelete}
-                        key={e.id} data={e} />;
+                return <TodoEntryView  
+                            key={e.id} data={e} />;
             })
 
         return (
@@ -76,10 +70,7 @@ export class TodayView extends React.Component {
     render() {
         return (
             <div>
-                <TodoListView 
-                    handleCompleteSubmit={this.props.handleCompleteSubmit} 
-                    handleIncompleteSubmit={this.props.handleIncompleteSubmit}
-                    handleDelete={this.props.handleDelete}
+                <TodoListView
                     todo={this.state.todo} />
             </div>
         )
