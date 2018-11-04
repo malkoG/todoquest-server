@@ -1,5 +1,7 @@
 # TODO QUEST
 
+* UI 관련 메뉴얼은 [여기](https://github.com/malkoG/TodoQuest/wiki) 참고해주세요
+
 ## Environment
 
 * Python 3.6
