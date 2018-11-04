@@ -10,6 +10,7 @@ djangorestframework = "==3.9.0"
 pyyaml = "*"
 gunicorn = "*"
 django-heroku = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
