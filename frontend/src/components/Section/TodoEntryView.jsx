@@ -11,20 +11,23 @@ export class TodoEntryView extends React.Component {
         super(props)
     }
 
+
     render() {
         let PRIORITY_COLOR = ["", "red", "yellow", "purple", "black"]
         let color_code = this.props.data.priority
         let showing_status = [<br/>]
 
         if(this.props.data.completed) {
-            showing_status = <Glyphicon glyph="ok"/>
+            showing_status = <Glyphicon 
+            onClick={(e) => this.props.handleinCompleteSubmit(this.props.data.id, e)} glyph="ok"/>
         } else {
-            showing_status = <Glyphicon glyph="unchecked"/>
+            showing_status = <Glyphicon 
+            onClick={(e) => this.props.handleCompleteSubmit(this.props.data.id, e)} glyph="unchecked"/>
         }
 
         return (
         <div className="todo">
-            <div className={"priority priority-" + PRIORITY_COLOR[color_code]}>
+            <div  className={"priority priority-" + PRIORITY_COLOR[color_code]}>
                 {showing_status}
             </div>
             <div className="title">
@@ -33,6 +36,12 @@ export class TodoEntryView extends React.Component {
                 </NavLink>
             </div>
             <div className="deadline">{this.props.data.deadline}</div>
+            <div className="delete-button">
+                <Glyphicon 
+                    onClick={(e) => this.props.handleDelete(this.props.data.id, e)}
+                    glyph="trash"/> 
+            </div>
+
         </div>);
     }
 }

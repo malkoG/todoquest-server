@@ -126,13 +126,11 @@ export class TodoDetailView extends React.Component {
                     </FormControl>
                 </FormGroup>
 
-                <FormGroup>
-                    <ControlLabel>마감기한을 정해두세요</ControlLabel>
-                    <DatePicker
-                        selected={this.state.deadline}
-                        onChange={this.handleDateChange}
-                    />
-                </FormGroup>
+                <ControlLabel>마감기한을 정해두세요</ControlLabel>
+                <DatePicker
+                    selected={this.state.deadline}
+                    onChange={this.handleDateChange}
+                />
                 
                 <Button type="submit"
                         onClick={this.handleClick}>Submit</Button>

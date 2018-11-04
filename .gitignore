@@ -3,4 +3,4 @@
 *.pyc
 node_modules/
 .cache
-static/js/
+frontend/static/js

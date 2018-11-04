@@ -117,13 +117,11 @@ export class TodoCreateView extends React.Component {
                     </FormControl>
                 </FormGroup>
 
-                <FormGroup>
-                    <ControlLabel>마감기한을 정해두세요</ControlLabel>
-                    <DatePicker
+                <ControlLabel>마감기한을 정해두세요</ControlLabel>
+                <DatePicker
                         selected={this.state.deadline}
                         onChange={this.handleDateChange}
-                    />
-                </FormGroup>
+                />
                 
                 <Button type="submit"
                         onClick={this.handleClick}>Submit</Button>

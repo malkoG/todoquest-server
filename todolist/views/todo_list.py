@@ -10,6 +10,9 @@ class TodoList(mixins.CreateModelMixin,
     queryset         = TodoEntry.entries.all()
     serializer_class = TodoEntrySerializer
 
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
