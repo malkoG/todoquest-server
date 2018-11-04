@@ -7,7 +7,7 @@ from rest_framework import generics
 class NotificationList(mixins.CreateModelMixin,
                 mixins.ListModelMixin,
                 generics.GenericAPIView):
-    queryset         = Notification.objects.all().filter(checked=False)
+    queryset         = Notification.objects.all().filter(checked=False).order_by('-created_at')
     serializer_class = NotificationSerializer
 
     def get(self, request, *args, **kwargs):
