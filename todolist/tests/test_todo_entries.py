@@ -14,12 +14,6 @@ class TodoEntryTest(TestCase):
         TodoEntry.objects.create(title=u"과제 하기")
         TodoEntry.objects.create(title=u"네트워크 프로그래밍 공부")
 
-
-    def test_get_first_todo(self):
-        todo = TodoEntry.objects.get(pk=1)
-        self.assertEqual(todo.title, u"장 보기")
-
-
     def test_how_many_todo(self):
         todos = TodoEntry.objects.all()
         self.assertEqual(len(todos), 4)
@@ -32,9 +26,3 @@ class TodoEntryTest(TestCase):
         TodoEntry.objects.create(title=u"세미나 준비", description=u"엄청엄청엄청 중요한 세미나", priority='S', deadline=deadline)
         todos = TodoEntry.objects.all()
         self.assertEqual(len(todos), 5)
-
-    def test_delete_todo(self):
-        todo = TodoEntry.objects.get(pk=2)
-        todo.destroy()
-        todos = TodoEntry.objects.all()
-        self.assertEqual(len(todos), 4)
