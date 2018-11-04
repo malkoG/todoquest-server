@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'todoquest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todoquest',
+        'NAME': os['DBNAME'],
         'USER': os.environ['DBUSER'],
-        'PASSWORD': os.environ['PASSWORD'],
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'PASSWORD': os.environ['DBPASSWORD'],
+        'HOST': os.environ['DBHOST'],
+        'PORT': os.environ['DBPORT']
     }
 }
 
