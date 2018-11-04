@@ -40,7 +40,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python manage.py test
+            DBUSER=root PASSWORD="" python manage.py test
                                                                                       
       - store_artifacts:
           path: test-reports
