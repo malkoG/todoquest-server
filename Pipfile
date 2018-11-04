@@ -6,12 +6,10 @@ name = "pypi"
 [packages]
 django = "==2.1.0"
 djangorestframework = "==3.9.0"
-"psycopg2" = "==2.7.2"
 pyyaml = "*"
 gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
-"psycopg2-binary" = "*"
 djongo = "*"
 
 [dev-packages]
