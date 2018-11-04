@@ -4,11 +4,13 @@
 
 ## Environment
 
-* Python 3.6
-* Django 2.1
-* Pipenv
-* MongoDB
-
+* Backend
+    * Python 3.6
+    * Django 2.1
+    * Pipenv
+    * MongoDB
+* Frontend
+    * React 16.6 
 ### Installation
 
 > Ubuntu 기준으로 작성한 메뉴얼입니다.
