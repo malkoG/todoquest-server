@@ -11,6 +11,7 @@ gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
 djongo = "*"
+django-rest-swagger = "*"
 
 [dev-packages]
 
