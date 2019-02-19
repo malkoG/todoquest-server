@@ -1,6 +1,3 @@
-[submodule "frontend/todoquest-client"]
-	path = frontend/todoquest-client
-	url = git@github.com:malkoG/todoquest-client
 [submodule "frontend/src"]
 	path = frontend/src
 	url = git@github.com:malkoG/todoquest-client

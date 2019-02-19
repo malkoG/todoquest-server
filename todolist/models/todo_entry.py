@@ -1,6 +1,9 @@
+from django.contrib.auth.models import User
+
 from django.db import models
 from django.db.models import Case, Value, When
 from django.db.models.functions import Now
+
 from django.utils.timezone import now
 
 PRIORITIES = (
@@ -36,6 +39,8 @@ class TodoEntry(models.Model):
     * priority : TodoEntry에서 할 일의 우선순위를 의미한다.
     * completed : TodoEntry에서 할 일의 완료 여부를 의미한다.
     * deadline : TodoEntry에서 마감기한을 의미한다.
+
+    * owner    : 사용자 계정
     """
 
     title       = models.CharField(max_length=255)
@@ -46,6 +51,8 @@ class TodoEntry(models.Model):
 
     created_at  = models.DateTimeField(default=now)
     updated_at  = models.DateTimeField(default=now)
+
+    owner       = models.ForeignKey(to=User, on_delete=models.CASCADE, default=1)
 
     # Query Set 정의
 

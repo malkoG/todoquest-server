@@ -12,6 +12,8 @@ django-heroku = "*"
 dj-database-url = "*"
 djongo = "*"
 django-rest-swagger = "*"
+djangorestframework-simplejwt = "*"
+django-dotenv = "*"
 
 [dev-packages]
 

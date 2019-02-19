@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 
@@ -21,3 +22,5 @@ class Notification(models.Model):
 
     created_at  = models.DateTimeField(default=now)
     updated_at  = models.DateTimeField(default=now)
+
+    owner       = models.ForeignKey(to=User, on_delete=models.CASCADE, default=1)

@@ -1,5 +1,6 @@
 from todolist.models import TodoEntry
 from todolist.serializers import TodoEntrySerializer
+from todolist.permissions import IsOwner
 
 from rest_framework import mixins
 from rest_framework import generics
@@ -10,6 +11,7 @@ class TodoEntryDetail(mixins.RetrieveModelMixin,
                     generics.GenericAPIView): 
     queryset = TodoEntry.entries.all()
     serializer_class = TodoEntrySerializer
+    permission_classes = (IsOwner,)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

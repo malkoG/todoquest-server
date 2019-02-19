@@ -1,7 +1,9 @@
 from rest_framework import status
+from rest_framework import permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from todolist.permissions import IsOwner
 from todolist.models import Notification
 
 @api_view(['PUT'])

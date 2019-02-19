@@ -17,12 +17,18 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 from rest_framework_swagger.views import get_swagger_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, 
+    TokenRefreshView
+)
 
 schema_view = get_swagger_view(title='TodoQuest API')
 
 urlpatterns = [
     path('docs/', schema_view),
     path('api/', include('todolist.urls')),
+    path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     re_path('^.*', include('frontend.urls')),
 ]
