@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "sass": "^1.17.0"
   }
 }
